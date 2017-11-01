@@ -1,0 +1,7 @@
+.vs
+.svn
+Debug
+x64
+/*.opendb
+/*.db
+vs2015_vc140_win_x64
