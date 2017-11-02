@@ -1,4 +1,5 @@
 #include "VulkanCommandBuffer.h"
+#include "VulkanBuffer.h"
 #include "Utils.h"
 
 namespace yzl
@@ -52,6 +53,33 @@ namespace yzl
 			std::cout << "Error occurred during command buffer recording." << std::endl;
 			return false;
 		}
+		return true;
+	}
+
+	bool VulkanCommandBuffer::AddBarrier(VkPipelineStageFlags generatingStages, VkPipelineStageFlags consumingStages, std::vector<BufferTransition> bufferTransitions)
+	{
+		std::vector<VkBufferMemoryBarrier> bufferMemoryBarriers;
+
+		for (auto & transition : bufferTransitions) 
+		{
+			bufferMemoryBarriers.push_back(
+			{
+				VK_STRUCTURE_TYPE_BUFFER_MEMORY_BARRIER,   
+				nullptr,                                   
+				transition.currentAccess,           
+				transition.newAccess,               
+				transition.currentQueueFamily,      
+				transition.newQueueFamily,          
+				transition.buffer,                  
+				0,                                         
+				VK_WHOLE_SIZE                              
+			});
+		}
+
+		if (bufferMemoryBarriers.size() > 0) {
+			vkCmdPipelineBarrier(m_commandBuffer, generatingStages, consumingStages, 0, 0, nullptr, static_cast<uint32_t>(bufferMemoryBarriers.size()), bufferMemoryBarriers.data(), 0, nullptr);
+		}
+
 		return true;
 	}
 }

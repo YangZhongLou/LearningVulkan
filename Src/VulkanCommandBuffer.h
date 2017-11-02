@@ -1,9 +1,12 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
+#include <vector>
 
 namespace yzl
 {
+	struct BufferTransition;
+
 	class VulkanCommandBuffer
 	{
 	public:
@@ -14,6 +17,9 @@ namespace yzl
 	private:
 		bool Begin(VkCommandBufferBeginInfo& commandBufferBeginInfo);
 		bool End();
+		bool AddBarrier(VkPipelineStageFlags generatingStages,
+			VkPipelineStageFlags consumingStages,
+			std::vector<BufferTransition> bufferTransitions);
 	private:
 		VkCommandBuffer m_commandBuffer;
 	};
