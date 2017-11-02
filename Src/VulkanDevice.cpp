@@ -2,6 +2,8 @@
 #include "VulkanDevice.h"
 #include "VulkanPhysicalDevice.h"
 #include "VulkanExtensions.h"
+#include "VulkanSemaphore.h"
+#include "VulkanQueue.h"
 #include "Utils.h"
 #include <iostream>
 
@@ -71,7 +73,75 @@ namespace yzl
 		return true;
 	}
 
-	bool VulkanDevice::Init(const VulkanInstance * vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices, 
+	bool VulkanDevice::SynchronizeCommandBuffers(VulkanQueue * firstQueue, 
+		std::vector<SemaphoreInfo*> firstWaitsemaphoreInfos,
+		std::vector<VkCommandBuffer> firstCommandBuffers,
+		std::vector<SemaphoreInfo*> syncSemaphoreInfos,
+		VulkanQueue * secondQueue,
+		std::vector<VkCommandBuffer> secondCommandBuffers,
+		std::vector<VkSemaphore> secondSignalSemaphores, 
+		VkFence secondFence)
+	{
+		std::vector<VkSemaphore> firstSignalSemaphores;
+		for (auto & info : syncSemaphoreInfos) 
+		{
+			firstSignalSemaphores.emplace_back(info->semaphore);
+		}
+
+		if (!firstQueue->Submit(firstWaitsemaphoreInfos, firstCommandBuffers, firstSignalSemaphores, VK_NULL_HANDLE)) 
+		{
+			return false;
+		}
+
+		if (!secondQueue->Submit(syncSemaphoreInfos, secondCommandBuffers, secondSignalSemaphores, secondFence)) 
+		{
+			return false;
+		}
+		return true;
+	}
+
+	bool VulkanDevice::WaitForFences(std::vector<VkFence> const & fences, VkBool32 waitForAll, uint64_t timeout)
+	{
+		if (fences.size() > 0) 
+		{
+			VkResult result = vkWaitForFences(m_device, static_cast<uint32_t>(fences.size()), fences.data(), waitForAll, timeout);
+			if (VK_SUCCESS != result) {
+				std::cout << "Waiting on fence failed." << std::endl;
+				return false;
+			}
+			return true;
+		}
+		return false;
+	}
+
+	bool VulkanDevice::WaitIdle()
+	{
+		VkResult result = vkDeviceWaitIdle(m_device);
+		if (VK_SUCCESS != result) 
+		{
+			std::cout << "Waiting on a device failed." << std::endl;
+			return false;
+		}
+		return true;
+	}
+
+	bool VulkanDevice::ResetFences(std::vector<VkFence> const & fences)
+	{
+		if (fences.size() > 0) 
+		{
+			VkResult result = vkResetFences(m_device, static_cast<uint32_t>(fences.size()), fences.data());
+			if (VK_SUCCESS != result) 
+			{
+				std::cout << "Error occurred when tried to reset fences." << std::endl;
+				return false;
+			}
+			return VK_SUCCESS == result;
+		}
+
+		return false;
+	}
+
+	bool VulkanDevice::Init(const VulkanInstance * vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
 			std::vector<char const *> const & desiredExtensions)
 	{
 		for (auto& device : physicalDevices) {

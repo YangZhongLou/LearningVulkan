@@ -1,4 +1,5 @@
 #include "VulkanInstance.h"
+#include "VulkanDevice.h"
 #include "VulkanExtensions.h"
 #include "VulkanPhysicalDevice.h"
 #include <iostream>

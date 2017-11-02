@@ -123,14 +123,16 @@
     <ClCompile Include="..\Src\Utils.cpp" />
     <ClCompile Include="..\Src\Canvas.cpp" />
     <ClCompile Include="..\Src\VkRender.cpp" />
+    <ClCompile Include="..\Src\VulkanCommandBuffer.cpp" />
     <ClCompile Include="..\Src\VulkanCommandBuffers.cpp" />
-    <ClCompile Include="..\Src\VulkanCommandOperator.cpp" />
     <ClCompile Include="..\Src\VulkanCommandPool.cpp" />
     <ClCompile Include="..\Src\VulkanDevice.cpp" />
     <ClCompile Include="..\Src\VulkanExtensions.cpp" />
+    <ClCompile Include="..\Src\VulkanFence.cpp" />
     <ClCompile Include="..\Src\VulkanFunctions.cpp" />
     <ClCompile Include="..\Src\VulkanInstance.cpp" />
     <ClCompile Include="..\Src\VulkanPhysicalDevice.cpp" />
+    <ClCompile Include="..\Src\VulkanSemaphore.cpp" />
     <ClCompile Include="..\Src\VulkanSurface.cpp" />
     <ClCompile Include="..\Src\VulkanSwapChain.cpp" />
   </ItemGroup>
@@ -143,14 +145,15 @@
     <ClInclude Include="..\Src\Utils.h" />
     <ClInclude Include="..\Src\Canvas.h" />
     <ClInclude Include="..\Src\VkRenderer.h" />
-    <ClInclude Include="..\Src\VulkanCommandBuffers.h" />
-    <ClInclude Include="..\Src\VulkanCommandOperator.h" />
+    <ClInclude Include="..\Src\VulkanCommandBuffer.h" />
     <ClInclude Include="..\Src\VulkanCommandPool.h" />
     <ClInclude Include="..\Src\VulkanDevice.h" />
     <ClInclude Include="..\Src\VulkanExtensions.h" />
+    <ClInclude Include="..\Src\VulkanFence.h" />
     <ClInclude Include="..\Src\VulkanFunctions.h" />
     <ClInclude Include="..\Src\VulkanInstance.h" />
     <ClInclude Include="..\Src\VulkanPhysicalDevice.h" />
+    <ClInclude Include="..\Src\VulkanSemaphore.h" />
     <ClInclude Include="..\Src\VulkanSurface.h" />
     <ClInclude Include="..\Src\VulkanSwapChain.h" />
     <ClInclude Include="..\Src\WindowParameters.h" />

@@ -6,6 +6,8 @@
 
 namespace yzl
 {
+	class VulkanDevice;
+
 	class VulkanInstance
 	{
 	public:
@@ -18,9 +20,11 @@ namespace yzl
 	public:
 		bool EnumeratePhysicalDevices();
 		bool CheckExtensions(const std::vector<char const *>& extensions);
+		VulkanDevice* GetDevice() { return m_device; }
 	private:
 		bool Init(std::string& appName, std::string& engineName, const std::vector<char const *>& extensions);
 	private:
 		std::vector<VkPhysicalDevice> m_physicalDevices;
+		VulkanDevice* m_device;
 	};
 }

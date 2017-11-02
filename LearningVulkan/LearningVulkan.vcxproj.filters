@@ -63,7 +63,13 @@
     <ClCompile Include="..\Src\VulkanCommandPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanCommandOperator.cpp">
+    <ClCompile Include="..\Src\VulkanCommandBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanSemaphore.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanFence.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -116,13 +122,16 @@
     <ClInclude Include="..\Src\VulkanSwapChain.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanCommandBuffers.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\VulkanCommandPool.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanCommandOperator.h">
+    <ClInclude Include="..\Src\VulkanCommandBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanSemaphore.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanFence.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

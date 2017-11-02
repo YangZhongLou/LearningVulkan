@@ -16,9 +16,11 @@ namespace yzl
 	public:
 		void Submit() override;
 		void Flush() override;
+
 	private:
 		void Init();
 		void PresentImage();
+		bool SubmitCommandBuffersToQueue();
 	private:
 		LIBRARY_TYPE m_vkLibrary;
 		VulkanInstance* m_vkInstance;
