@@ -57,9 +57,6 @@
     <ClCompile Include="..\Src\VulkanSwapChain.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanCommandBuffers.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\VulkanCommandPool.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
@@ -70,6 +67,21 @@
       <Filter>源文件</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\VulkanFence.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanQueue.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanBuffer.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanDeviceMemory.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanBufferView.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanImage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -132,6 +144,21 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\VulkanFence.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanQueue.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanBuffer.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanDeviceMemory.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanBufferView.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanImage.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
