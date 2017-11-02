@@ -14,7 +14,7 @@ namespace yzl
 	private:
 		bool Init(VulkanDevice* device, bool signaled);
 	private:
-		VulkanDevice m_device;
+		VulkanDevice* m_device;
 		VkFence m_fence;
 	};
 }

@@ -6,7 +6,7 @@ namespace yzl
 {
 	VulkanFence::VulkanFence(VulkanDevice * device, bool signaled)
 	{
-
+		m_device = device;
 	}
 
 	VulkanFence::~VulkanFence()
