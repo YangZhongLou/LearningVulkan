@@ -1,6 +1,7 @@
 #include "VulkanCommandBuffer.h"
 #include "VulkanBuffer.h"
 #include "VulkanImage.h"
+#include "VulkanRenderPass.h"
 #include "Utils.h"
 
 namespace yzl
@@ -55,6 +56,36 @@ namespace yzl
 			return false;
 		}
 		return true;
+	}
+
+	void VulkanCommandBuffer::BeginRenderPass(VulkanRenderPass* renderPass, 
+		VkFramebuffer framebuffer,
+		VkRect2D renderArea,
+		std::vector<VkClearValue> const & clearValues,
+		VkSubpassContents subpassContents)
+	{
+		VkRenderPassBeginInfo renderPassBeginInfo = 
+		{
+			VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO,    
+			nullptr,                                     
+			renderPass->GetRenderPass(),
+			framebuffer,                                 
+			renderArea,
+			static_cast<uint32_t>(clearValues.size()),
+			clearValues.data()
+		};
+
+		vkCmdBeginRenderPass(m_commandBuffer, &renderPassBeginInfo, subpassContents);
+	}
+
+	void VulkanCommandBuffer::NextSubPass(VkSubpassContents subpassContents)
+	{
+		vkCmdNextSubpass(m_commandBuffer, subpassContents);
+	}
+
+	void VulkanCommandBuffer::EndRenderPass()
+	{
+		vkCmdEndRenderPass(m_commandBuffer);
 	}
 
 	bool VulkanCommandBuffer::AddBarrier(VkPipelineStageFlags generatingStages, VkPipelineStageFlags consumingStages, std::vector<BufferTransition> bufferTransitions)
@@ -139,6 +170,17 @@ namespace yzl
 		{
 			vkCmdCopyImageToBuffer(m_commandBuffer, sourceImage, imageLayout, destinationBuffer, static_cast<uint32_t>(regions.size()), regions.data());
 		}
+	}
+
+	void VulkanCommandBuffer::BindDescriptorSets(VkPipelineBindPoint pipelineType, 
+			VkPipelineLayout pipelineLayout, 
+			uint32_t indexForFirstSet, 
+			std::vector<VkDescriptorSet> const & descriptorSets, 
+			std::vector<uint32_t> const & dynamicOffsets)
+	{
+		vkCmdBindDescriptorSets(m_commandBuffer, pipelineType, pipelineLayout, indexForFirstSet,
+			static_cast<uint32_t>(descriptorSets.size()), descriptorSets.data(),
+			static_cast<uint32_t>(dynamicOffsets.size()), dynamicOffsets.data());
 	}
 }
 

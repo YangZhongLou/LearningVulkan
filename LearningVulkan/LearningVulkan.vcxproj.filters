@@ -78,10 +78,22 @@
     <ClCompile Include="..\Src\VulkanDeviceMemory.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanBufferView.cpp">
+    <ClCompile Include="..\Src\VulkanImage.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanImage.cpp">
+    <ClCompile Include="..\Src\VulkanSampler.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanDescriptorSetLayout.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanDescriptorPool.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanRenderPass.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\VulkanFrameBuffer.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -155,10 +167,22 @@
     <ClInclude Include="..\Src\VulkanDeviceMemory.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanBufferView.h">
+    <ClInclude Include="..\Src\VulkanImage.h">
       <Filter>头文件</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanImage.h">
+    <ClInclude Include="..\Src\VulkanSampler.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanDescriptorSetLayout.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanDescriptorPool.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanRenderPass.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\VulkanFrameBuffer.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

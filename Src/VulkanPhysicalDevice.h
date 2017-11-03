@@ -26,6 +26,21 @@ namespace yzl
 				return m_features;
 			}
 		}
+
+		const VkFormatProperties& GetFormatProperties(VkFormat format)
+		{
+			if (m_isDirty)
+			{
+				m_isDirty = false;
+				vkGetPhysicalDeviceFormatProperties(m_physicalDevice, format, &m_formatProperties);
+				return m_formatProperties;
+			}
+			else
+			{
+				m_formatProperties;
+			}
+		}
+
 		const VkPhysicalDeviceProperties& GetProperties() 
 		{
 			if (m_isDirty)
@@ -56,9 +71,11 @@ namespace yzl
 		uint32_t GetCapabilitiesFamilyIndex(VkQueueFlags capabilities);
 	private:
 		VkPhysicalDevice m_physicalDevice;
+		/* refine this */
 		bool m_isDirty;
 		VkPhysicalDeviceFeatures m_features;
 		VkPhysicalDeviceProperties m_properties;
+		VkFormatProperties m_formatProperties;
 		std::vector<VkQueueFamilyProperties> m_queueFamilyProperties;
 	};
 }
