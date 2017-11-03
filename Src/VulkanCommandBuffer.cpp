@@ -172,7 +172,12 @@ namespace yzl
 		}
 	}
 
-	void VulkanCommandBuffer::BindDescriptorSets(VkPipelineBindPoint pipelineType, 
+	void VulkanCommandBuffer::BindPipeline(VkPipelineBindPoint pipelineType, VkPipeline pipeline)
+	{
+		vkCmdBindPipeline(m_commandBuffer, pipelineType, pipeline);
+	}
+
+	void VulkanCommandBuffer::BindDescriptorSets(VkPipelineBindPoint pipelineType,
 			VkPipelineLayout pipelineLayout, 
 			uint32_t indexForFirstSet, 
 			std::vector<VkDescriptorSet> const & descriptorSets, 

@@ -42,6 +42,9 @@ namespace yzl
 		void CopyBuffer(VkBuffer sourceBuffer, VkImage destinationImage, VkImageLayout imageLayout, std::vector<VkBufferImageCopy> regions);
 		void CopyBuffer(VkImage sourceImage, VkBuffer destinationBuffer, VkImageLayout imageLayout, std::vector<VkBufferImageCopy> regions);
 
+
+		void BindPipeline(VkPipelineBindPoint pipelineType,
+			VkPipeline pipeline);
 		void BindDescriptorSets(VkPipelineBindPoint pipelineType,
 			VkPipelineLayout pipelineLayout,
 			uint32_t indexForFirstSet,
