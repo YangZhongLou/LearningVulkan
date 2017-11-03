@@ -6,6 +6,7 @@
 namespace yzl
 {
 	struct BufferTransition;
+	struct ImageTransition;
 
 	class VulkanCommandBuffer
 	{
@@ -20,6 +21,14 @@ namespace yzl
 		bool AddBarrier(VkPipelineStageFlags generatingStages,
 			VkPipelineStageFlags consumingStages,
 			std::vector<BufferTransition> bufferTransitions);
+		bool AddBarrier(VkPipelineStageFlags generatingStages,
+			VkPipelineStageFlags consumingStages,
+			std::vector<ImageTransition> transitions);
+
+		void CopyBuffer(VkBuffer sourceBuffer, VkBuffer destinationBuffer, std::vector<VkBufferCopy> regions);
+		void CopyBuffer(VkBuffer sourceBuffer, VkImage destinationImage, VkImageLayout imageLayout, std::vector<VkBufferImageCopy> regions);
+		void CopyBuffer(VkImage sourceImage, VkBuffer destinationBuffer, VkImageLayout imageLayout, std::vector<VkBufferImageCopy> regions);
+
 	private:
 		VkCommandBuffer m_commandBuffer;
 	};

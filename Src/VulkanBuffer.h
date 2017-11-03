@@ -21,10 +21,15 @@ namespace yzl
 		~VulkanBuffer();
 	public:
 		VkBuffer GetBuffer() const { return m_buffer; }
+		bool CreateView(VkFormat format,
+			VkDeviceSize memoryOffset,
+			VkDeviceSize memoryRangeVkBufferView, 
+			VkBufferView& bufferView);
 	private:
 		bool Init(VulkanDevice* device, VkDeviceSize size, VkBufferUsageFlags usage);
 	private:
 		VulkanDevice* m_device;
+		VkBufferView m_bufferView;
 		VkBuffer m_buffer;
 	};
 }

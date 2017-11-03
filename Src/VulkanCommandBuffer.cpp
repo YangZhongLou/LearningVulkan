@@ -1,5 +1,6 @@
 #include "VulkanCommandBuffer.h"
 #include "VulkanBuffer.h"
+#include "VulkanImage.h"
 #include "Utils.h"
 
 namespace yzl
@@ -81,6 +82,63 @@ namespace yzl
 		}
 
 		return true;
+	}
+
+	bool VulkanCommandBuffer::AddBarrier(VkPipelineStageFlags generatingStages, VkPipelineStageFlags consumingStages, std::vector<ImageTransition> transitions)
+	{
+		std::vector<VkImageMemoryBarrier> imageMemoryBarriers;
+		for (auto & transition : transitions) 
+		{
+			imageMemoryBarriers.push_back({
+				VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,  
+				nullptr,                          
+				transition.currentAccess,         
+				transition.newAccess,             
+				transition.currentLayout,         
+				transition.newLayout,             
+				transition.currentQueueFamily,    
+				transition.newQueueFamily,        
+				transition.image,                 
+				{                                 
+					transition.aspect,            
+					0,                                   
+					VK_REMAINING_MIP_LEVELS,             
+					0,                                   
+					VK_REMAINING_ARRAY_LAYERS            
+				}
+			});
+		}
+
+		if (imageMemoryBarriers.size() > 0) 
+		{
+			vkCmdPipelineBarrier(m_commandBuffer, generatingStages, consumingStages, 0, 0, nullptr, 0, nullptr, static_cast<uint32_t>(imageMemoryBarriers.size()), imageMemoryBarriers.data());
+		}
+
+		return true;
+	}
+
+	void VulkanCommandBuffer::CopyBuffer(VkBuffer sourceBuffer, VkBuffer destinationBuffer, std::vector<VkBufferCopy> regions)
+	{
+		if (regions.size() > 0) 
+		{
+			vkCmdCopyBuffer(m_commandBuffer, sourceBuffer, destinationBuffer, static_cast<uint32_t>(regions.size()), regions.data());
+		}
+	}
+
+	void VulkanCommandBuffer::CopyBuffer(VkBuffer sourceBuffer, VkImage destinationImage, VkImageLayout imageLayout, std::vector<VkBufferImageCopy> regions)
+	{
+		if (regions.size() > 0) 
+		{
+			vkCmdCopyBufferToImage(m_commandBuffer, sourceBuffer, destinationImage, imageLayout, static_cast<uint32_t>(regions.size()), regions.data());
+		}
+	}
+
+	void VulkanCommandBuffer::CopyBuffer(VkImage sourceImage, VkBuffer destinationBuffer, VkImageLayout imageLayout, std::vector<VkBufferImageCopy> regions)
+	{
+		if (regions.size() > 0) 
+		{
+			vkCmdCopyImageToBuffer(m_commandBuffer, sourceImage, imageLayout, destinationBuffer, static_cast<uint32_t>(regions.size()), regions.data());
+		}
 	}
 }
 
