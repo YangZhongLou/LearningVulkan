@@ -135,14 +135,19 @@
     <ClCompile Include="..\Src\VulkanFrameBuffer.cpp" />
     <ClCompile Include="..\Src\VulkanFunctions.cpp" />
     <ClCompile Include="..\Src\VulkanImage.cpp" />
+    <ClCompile Include="..\Src\VulkanIndexBuffer.cpp" />
     <ClCompile Include="..\Src\VulkanInstance.cpp" />
     <ClCompile Include="..\Src\VulkanPhysicalDevice.cpp" />
+    <ClCompile Include="..\Src\VulkanPipelineCache.cpp" />
+    <ClCompile Include="..\Src\VulkanPipelineLayout.cpp" />
     <ClCompile Include="..\Src\VulkanQueue.cpp" />
     <ClCompile Include="..\Src\VulkanRenderPass.cpp" />
     <ClCompile Include="..\Src\VulkanSampler.cpp" />
     <ClCompile Include="..\Src\VulkanSemaphore.cpp" />
+    <ClCompile Include="..\Src\VulkanShaderModule.cpp" />
     <ClCompile Include="..\Src\VulkanSurface.cpp" />
     <ClCompile Include="..\Src\VulkanSwapChain.cpp" />
+    <ClCompile Include="..\Src\VulkanVertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Src\Application.h" />
@@ -165,14 +170,19 @@
     <ClInclude Include="..\Src\VulkanFrameBuffer.h" />
     <ClInclude Include="..\Src\VulkanFunctions.h" />
     <ClInclude Include="..\Src\VulkanImage.h" />
+    <ClInclude Include="..\Src\VulkanIndexBuffer.h" />
     <ClInclude Include="..\Src\VulkanInstance.h" />
     <ClInclude Include="..\Src\VulkanPhysicalDevice.h" />
+    <ClInclude Include="..\Src\VulkanPipelineCache.h" />
+    <ClInclude Include="..\Src\VulkanPipelineLayout.h" />
     <ClInclude Include="..\Src\VulkanQueue.h" />
     <ClInclude Include="..\Src\VulkanRenderPass.h" />
     <ClInclude Include="..\Src\VulkanSampler.h" />
     <ClInclude Include="..\Src\VulkanSemaphore.h" />
+    <ClInclude Include="..\Src\VulkanShaderModule.h" />
     <ClInclude Include="..\Src\VulkanSurface.h" />
     <ClInclude Include="..\Src\VulkanSwapChain.h" />
+    <ClInclude Include="..\Src\VulkanVertexBuffer.h" />
     <ClInclude Include="..\Src\WindowParameters.h" />
   </ItemGroup>
   <ItemGroup>

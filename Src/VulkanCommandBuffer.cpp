@@ -2,6 +2,8 @@
 #include "VulkanBuffer.h"
 #include "VulkanImage.h"
 #include "VulkanRenderPass.h"
+#include "VulkanIndexBuffer.h"
+#include "VulkanVertexBuffer.h"
 #include "Utils.h"
 
 namespace yzl
@@ -172,6 +174,59 @@ namespace yzl
 		}
 	}
 
+	void VulkanCommandBuffer::SetViewport(uint32_t firstViewport, std::vector<VkViewport> const & viewports)
+	{
+		vkCmdSetViewport(m_commandBuffer, firstViewport, static_cast<uint32_t>(viewports.size()), viewports.data());
+	}
+
+	void VulkanCommandBuffer::SetScissor(uint32_t firstScissor, std::vector<VkRect2D> const & scissors)
+	{
+		vkCmdSetScissor(m_commandBuffer, firstScissor, static_cast<uint32_t>(scissors.size()), scissors.data());
+	}
+
+	void VulkanCommandBuffer::SetLineWidth(float lineWidth)
+	{
+		vkCmdSetLineWidth(m_commandBuffer, lineWidth);
+	}
+
+	void VulkanCommandBuffer::SetDepthBias(float constantFactor, float clamp, float slopeFactor)
+	{
+		vkCmdSetDepthBias(m_commandBuffer, constantFactor, clamp, slopeFactor);
+	}
+
+	void VulkanCommandBuffer::SetBlendConstants(std::array<float, 4> const & blendConstants)
+	{
+		vkCmdSetBlendConstants(m_commandBuffer, blendConstants.data());
+	}
+
+	void VulkanCommandBuffer::Draw(uint32_t vertexCount, uint32_t instanceCount, uint32_t firstVertex, uint32_t firstInstance)
+	{
+		vkCmdDraw(m_commandBuffer, vertexCount, instanceCount, firstVertex, firstInstance);
+	}
+
+	void VulkanCommandBuffer::DrawIndexed(uint32_t indexCount, uint32_t instanceCount, uint32_t firstIndex, uint32_t vertexOffset, uint32_t firstInstance)
+	{
+		vkCmdDrawIndexed(m_commandBuffer, indexCount, instanceCount, firstIndex, vertexOffset, firstInstance);
+	}
+
+	void VulkanCommandBuffer::Dispatch(uint32_t xSize, uint32_t ySize, uint32_t zSize)
+	{
+		vkCmdDispatch(m_commandBuffer, xSize, ySize, zSize);
+	}
+
+	void VulkanCommandBuffer::ExecuteCommands(std::vector<VkCommandBuffer> const & secondaryCommandBuffers)
+	{
+		if (secondaryCommandBuffers.size() > 0)
+		{
+			vkCmdExecuteCommands(m_commandBuffer, static_cast<uint32_t>(secondaryCommandBuffers.size()), secondaryCommandBuffers.data());
+		}
+	}
+
+	void VulkanCommandBuffer::PushConstants(VkPipelineLayout pipelineLayout, VkShaderStageFlags pipelineStages, uint32_t offset, uint32_t size, void * data)
+	{
+		vkCmdPushConstants(m_commandBuffer, pipelineLayout, pipelineStages, offset, size, data);
+	}
+
 	void VulkanCommandBuffer::BindPipeline(VkPipelineBindPoint pipelineType, VkPipeline pipeline)
 	{
 		vkCmdBindPipeline(m_commandBuffer, pipelineType, pipeline);
@@ -186,6 +241,50 @@ namespace yzl
 		vkCmdBindDescriptorSets(m_commandBuffer, pipelineType, pipelineLayout, indexForFirstSet,
 			static_cast<uint32_t>(descriptorSets.size()), descriptorSets.data(),
 			static_cast<uint32_t>(dynamicOffsets.size()), dynamicOffsets.data());
+	}
+
+	void VulkanCommandBuffer::BindVertexBuffers(uint32_t firstBinding, std::vector<VulkanVertexBuffer> const & vertexBuffers)
+	{
+		if (vertexBuffers.size() > 0)
+		{
+			std::vector<VkBuffer> buffers;
+			std::vector<VkDeviceSize> offsets;
+
+			for (auto & vertexBuffer : vertexBuffers) 
+			{
+				buffers.push_back(vertexBuffer.GetBuffer()->GetBuffer());
+				offsets.push_back(vertexBuffer.GetMemoryOffset());
+			}
+
+			vkCmdBindVertexBuffers(m_commandBuffer, firstBinding, static_cast<uint32_t>(vertexBuffers.size()), buffers.data(), offsets.data());
+		}
+	}
+
+	void VulkanCommandBuffer::BindIndexBuffer(VulkanIndexBuffer & indexBuffer)
+	{
+		vkCmdBindIndexBuffer(m_commandBuffer, indexBuffer.GetBuffer()->GetBuffer(), indexBuffer.GetMemoryOffset(), indexBuffer.GetIndexType());
+	}
+
+	void VulkanCommandBuffer::ClearColorImage(VkImage image, 
+		VkImageLayout imageLayout, 
+		std::vector<VkImageSubresourceRange> const & imageSubresourceRanges, 
+		VkClearColorValue & clearColor)
+	{
+		vkCmdClearColorImage(m_commandBuffer, image, imageLayout, &clearColor, static_cast<uint32_t>(imageSubresourceRanges.size()), imageSubresourceRanges.data());
+	}
+
+	void VulkanCommandBuffer::ClearDepthStencilImage(VkImage image, 
+		VkImageLayout imageLayout, 
+		std::vector<VkImageSubresourceRange> const & imageSubresourceRanges, 
+		VkClearDepthStencilValue & clearValue)
+	{
+		vkCmdClearDepthStencilImage(m_commandBuffer, image, imageLayout, &clearValue, static_cast<uint32_t>(imageSubresourceRanges.size()), imageSubresourceRanges.data());
+	}
+
+	void VulkanCommandBuffer::ClearRenderPassAttachments(std::vector<VkClearAttachment> const & attachments, 
+		std::vector<VkClearRect> const & rects)
+	{
+		vkCmdClearAttachments(m_commandBuffer, static_cast<uint32_t>(attachments.size()), attachments.data(), static_cast<uint32_t>(rects.size()), rects.data());
 	}
 }
 
