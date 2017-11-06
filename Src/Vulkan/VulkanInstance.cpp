@@ -61,8 +61,6 @@ namespace yzl
 		std::vector<char const*> const & desiredExtensions = {};
 		SelectDevice(desiredExtensions);
 
-		m_device->AllocateCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT, m_device->GetGraphicsQueue()->)
-
 		return true;
 	}
 
@@ -113,5 +111,7 @@ namespace yzl
 		{
 			m_device = new VulkanDevice(this, m_physicalDevices, desiredExtensions);
 		}
+
+		return true;
 	}
 }

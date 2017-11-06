@@ -1,13 +1,14 @@
 #pragma once
 
 #include "../Define.h"
-#include <vulkan/vulkan.h>
 #include "../Renderer.h"
+#include <vulkan/vulkan.h>
 
 namespace yzl
 {
 	class VulkanSurface;
 	struct WindowParameters;
+	class VulkanInstance;
 	
 	class VkRenderer : public Renderer
 	{
@@ -25,8 +26,8 @@ namespace yzl
 		bool SubmitCommandBuffersToQueue();
 	private:
 		LIBRARY_TYPE m_vkLibrary;
-		VulkanInstance* m_vkInstance;
 	private:
-		VulkanSurface* m_surface;
+		VulkanInstance * m_vkInstance;
+		VulkanSurface * m_surface;
 	};
 }

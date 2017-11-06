@@ -46,7 +46,6 @@ namespace yzl
 		bool SelectPhysicalDevice(const VulkanInstance* vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
 				std::vector<char const *> const & desiredExtensions);
 		bool AllocateCommandPool(VkCommandPoolCreateFlags flags, uint32_t queueFamilyIndex);
-
 	private:
 		VulkanPhysicalDevice * m_vulkanPhysicalDevice;
 		VkDevice m_device;

@@ -150,6 +150,7 @@ namespace yzl
 	bool VulkanDevice::AllocateCommandPool(VkCommandPoolCreateFlags flags, uint32_t queueFamilyIndex)
 	{
 		m_commandPool = new VulkanCommandPool(this, flags, queueFamilyIndex);
+		return true;
 	}
 
 	bool VulkanDevice::SelectPhysicalDevice(const VulkanInstance * vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
