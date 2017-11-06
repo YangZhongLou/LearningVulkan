@@ -1,7 +1,7 @@
 
 #include "VulkanSurface.h"
-#include "WindowParameters.h"
-#include "Utils.h"
+#include "../WindowParameters.h"
+#include "../Utils.h"
 
 namespace yzl
 {

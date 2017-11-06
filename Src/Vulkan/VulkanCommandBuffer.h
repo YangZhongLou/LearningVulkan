@@ -54,6 +54,7 @@ namespace yzl
 			float clamp,
 			float slopeFactor);
 		void SetBlendConstants(std::array<float, 4> const & blendConstants);
+
 		void Draw(uint32_t vertexCount,
 			uint32_t instanceCount,
 			uint32_t firstVertex,
@@ -67,7 +68,7 @@ namespace yzl
 			uint32_t ySize,
 			uint32_t zSize);
 
-		void ExecuteCommands(std::vector<VkCommandBuffer> const & secondaryCommandBuffers);
+		void ExecuteSecondaryCommands(std::vector<VkCommandBuffer> const & secondaryCommandBuffers);
 
 		void PushConstants(VkPipelineLayout pipelineLayout,
 			VkShaderStageFlags pipelineStages,

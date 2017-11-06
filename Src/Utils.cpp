@@ -47,7 +47,7 @@ namespace yzl
       return false;                                                   \
     }
 
-#include "ListOfVulkanFunctions.inl"
+#include "Vulkan/ListOfVulkanFunctions.inl"
 
 		return true;
 	}
@@ -61,7 +61,7 @@ namespace yzl
       return false;                                                       \
     }
 
-#include "ListOfVulkanFunctions.inl"
+#include "Vulkan/ListOfVulkanFunctions.inl"
 
 		return true;
 	}
@@ -90,7 +90,7 @@ namespace yzl
       }                                                                         \
     }
 
-#include "ListOfVulkanFunctions.inl"
+#include "Vulkan/ListOfVulkanFunctions.inl"
 
 		return true;
 	}
@@ -119,7 +119,7 @@ namespace yzl
       }                                                                         \
     }
 
-#include "ListOfVulkanFunctions.inl"
+#include "Vulkan/ListOfVulkanFunctions.inl"
 
 		return true;
 	}

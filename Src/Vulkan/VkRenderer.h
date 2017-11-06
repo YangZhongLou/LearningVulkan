@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Renderer.h"
-#include "Define.h"
+#include "../Renderer.h"
+#include "../Define.h"
 
 namespace yzl
 {
