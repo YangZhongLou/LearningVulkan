@@ -1,2 +1,2 @@
 # LearningVulkan
-# Some codes come from VulkanCookbook
+# Some codes copied from VulkanCookbook
