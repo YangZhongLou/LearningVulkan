@@ -25,6 +25,7 @@ namespace yzl
 			std::vector<char const *> const & desiredExtensions);
 		~VulkanDevice();
 	public:
+		const VulkanCommandPool * GetCommandPool() const { return m_commandPool; }
 		VkDevice GetDevice() { return m_device; }
 		bool SynchronizeCommandBuffers(VulkanQueue * firstQueue,
 			std::vector<SemaphoreInfo*>  firstWaitsemaphoreInfos,

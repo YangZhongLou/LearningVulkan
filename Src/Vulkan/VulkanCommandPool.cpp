@@ -33,19 +33,19 @@ namespace yzl
 		return true;
 	}
 
-	bool VulkanCommandPool::AllocateCommandBuffers(VulkanDevice * device, VulkanCommandPool * pool, VkCommandBufferLevel level, uint32_t count)
+	bool VulkanCommandPool::AllocateCommandBuffers(VkCommandBufferLevel level, uint32_t count)
 	{
 		VkCommandBufferAllocateInfo commandBufferAllocateInfo = 
 		{
 			VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO,
 			nullptr,
-			pool->GetPool(),
+			m_pool,
 			level,
 			count
 		};
 
 		m_buffers.resize(count);
-		VkResult result = vkAllocateCommandBuffers(device->GetDevice(), &commandBufferAllocateInfo, m_buffers.data());
+		VkResult result = vkAllocateCommandBuffers(m_device->GetDevice(), &commandBufferAllocateInfo, m_buffers.data());
 		if (VK_SUCCESS != result)
 		{
 			std::cout << "Could not allocate command buffers." << std::endl;

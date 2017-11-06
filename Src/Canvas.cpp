@@ -1,6 +1,6 @@
 
 #include "Canvas.h"
-#include "Vulkan/VkRenderer.h"
+#include "Vulkan/VulkanRenderer.h"
 
 namespace yzl
 {
@@ -14,7 +14,7 @@ namespace yzl
 
 		InitWindow();
 
-		m_renderer = new VkRenderer();
+		m_renderer = new VulkanRenderer(m_winParams);
 	}
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {

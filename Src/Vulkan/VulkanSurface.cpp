@@ -13,7 +13,8 @@ namespace yzl
 
 	VulkanSurface::~VulkanSurface()
 	{
-		if (m_surface) {
+		if (m_surface) 
+		{
 			vkDestroySurfaceKHR(m_instance, m_surface, nullptr);
 			m_surface = VK_NULL_HANDLE;
 		}
@@ -23,7 +24,8 @@ namespace yzl
 	{
 		m_imageCount = m_capabilities.minImageCount + 1;
 		if ((m_capabilities.maxImageCount > 0) &&
-			(m_imageCount > m_capabilities.maxImageCount)) {
+			(m_imageCount > m_capabilities.maxImageCount)) 
+		{
 			m_imageCount = m_capabilities.maxImageCount;
 		}
 		return true;
@@ -31,24 +33,30 @@ namespace yzl
 
 	bool VulkanSurface::CheckImageExtent()
 	{
-		if (0xFFFFFFFF == m_capabilities.currentExtent.width) {
+		if (0xFFFFFFFF == m_capabilities.currentExtent.width) 
+		{
 			m_imageExtent = { 640, 480 };
 
-			if (m_imageExtent.width < m_capabilities.minImageExtent.width) {
+			if (m_imageExtent.width < m_capabilities.minImageExtent.width) 
+			{
 				m_imageExtent.width = m_capabilities.minImageExtent.width;
 			}
-			else if (m_imageExtent.width > m_capabilities.maxImageExtent.width) {
+			else if (m_imageExtent.width > m_capabilities.maxImageExtent.width) 
+			{
 				m_imageExtent.width = m_capabilities.maxImageExtent.width;
 			}
 
-			if (m_imageExtent.height < m_capabilities.minImageExtent.height) {
+			if (m_imageExtent.height < m_capabilities.minImageExtent.height) 
+			{
 				m_imageExtent.height = m_capabilities.minImageExtent.height;
 			}
-			else if (m_imageExtent.height > m_capabilities.maxImageExtent.height) {
+			else if (m_imageExtent.height > m_capabilities.maxImageExtent.height) 
+			{
 				m_imageExtent.height = m_capabilities.maxImageExtent.height;
 			}
 		}
-		else {
+		else 
+		{
 			m_imageExtent = m_capabilities.currentExtent;
 		}
 		return true;

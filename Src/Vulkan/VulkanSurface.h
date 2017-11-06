@@ -28,6 +28,7 @@ namespace yzl
 
 		VkPresentModeKHR GetPresentMode() const { return m_presentMode; }
 		bool CheckPresentMode(const VkPhysicalDevice physicalDevice, VkPresentModeKHR desiredMode);
+
 		VkSurfaceFormatKHR GetFormat() const { return m_format; }
 		bool CheckFormat(const VkPhysicalDevice physicalDevice, VkSurfaceFormatKHR  desiredSurfaceFormat);
 

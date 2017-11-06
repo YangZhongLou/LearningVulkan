@@ -5,10 +5,8 @@
 #include "VulkanPhysicalDevice.h"
 #include "../Utils.h"
 
-
 namespace yzl
 {
-
 	VulkanSwapchain::VulkanSwapchain(VulkanDevice* device, VulkanSurface* surface)
 	{
 		Init(device, surface);
@@ -55,7 +53,8 @@ namespace yzl
 		auto physicalDevice = device->GetVulkanPhysicalDevice()->GetDevice();
 		const VkSurfaceCapabilitiesKHR& surfaceCapabilities = surface->GetCapabilities(physicalDevice);
 
-		VkSwapchainCreateInfoKHR swapchainCreateInfo = {
+		VkSwapchainCreateInfoKHR swapchainCreateInfo = 
+		{
 			VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR, 
 			nullptr,                                     
 			0,                                           
@@ -78,12 +77,14 @@ namespace yzl
 
 		VkResult result = vkCreateSwapchainKHR(device->GetDevice(), &swapchainCreateInfo, nullptr, &m_swapchain);
 		if ((VK_SUCCESS != result) ||
-			(VK_NULL_HANDLE == m_swapchain)) {
+			(VK_NULL_HANDLE == m_swapchain)) 
+		{
 			std::cout << "Could not create a swapchain." << std::endl;
 			return false;
 		}
 
-		if (VK_NULL_HANDLE != m_oldSwapchain) {
+		if (VK_NULL_HANDLE != m_oldSwapchain) 
+		{
 			vkDestroySwapchainKHR(device->GetDevice(), m_oldSwapchain, nullptr);
 			m_oldSwapchain = VK_NULL_HANDLE;
 		}
