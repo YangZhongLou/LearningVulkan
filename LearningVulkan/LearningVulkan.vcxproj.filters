@@ -1,224 +1,242 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="源文件">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    <Filter Include="Src">
+      <UniqueIdentifier>{2b8027ab-9115-4528-82dc-3c8ae57a65ec}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    <Filter Include="Src\Vulkan">
+      <UniqueIdentifier>{ffae0253-219f-4dc0-8adf-eda0940e438f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="资源文件">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    <Filter Include="Src\Math">
+      <UniqueIdentifier>{6c020f10-00e5-4c7a-bdf6-76d72dc704d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Src\Utils.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
     <ClCompile Include="..\Src\Application.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\Canvas.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\Render.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\VkRender.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\VulkanInstance.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Src\VulkanExtensions.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="..\Src\Logger.cpp">
-      <Filter>源文件</Filter>
+      <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanFunctions.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\main.cpp">
+      <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanDevice.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Render.cpp">
+      <Filter>Src</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanPhysicalDevice.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanBuffer.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanSurface.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanCommandBuffer.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanSwapChain.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanCommandPool.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanCommandPool.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanDescriptorPool.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanCommandBuffer.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanDescriptorSetLayout.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanSemaphore.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanDevice.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanFence.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanDeviceMemory.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanQueue.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanExtensions.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanBuffer.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanFence.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanDeviceMemory.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanFrameBuffer.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanImage.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanFunctions.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanSampler.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanImage.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanDescriptorSetLayout.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanIndexBuffer.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanDescriptorPool.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanInstance.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanRenderPass.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanPhysicalDevice.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanFrameBuffer.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanPipeline.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanShaderModule.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanPipelineCache.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanPipelineLayout.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanPipelineLayout.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanPipelineCache.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanQueue.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanVertexBuffer.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanRenderPass.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="..\Src\VulkanIndexBuffer.cpp">
-      <Filter>源文件</Filter>
+    <ClCompile Include="..\Src\Vulkan\VulkanSampler.cpp">
+      <Filter>Src\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Vulkan\VulkanSemaphore.cpp">
+      <Filter>Src\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Vulkan\VulkanShaderModule.cpp">
+      <Filter>Src\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Vulkan\VulkanSurface.cpp">
+      <Filter>Src\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Vulkan\VulkanSwapChain.cpp">
+      <Filter>Src\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Vulkan\VulkanVertexBuffer.cpp">
+      <Filter>Src\Vulkan</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Utils.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Mesh.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Math\Math.cpp">
+      <Filter>Src\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Src\Vulkan\VulkanRenderer.cpp">
+      <Filter>Src\Vulkan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Src\Utils.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\Define.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
     <ClInclude Include="..\Src\Application.h">
-      <Filter>头文件</Filter>
+      <Filter>Src</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Canvas.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\Renderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VkRenderer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanInstance.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanExtensions.h">
-      <Filter>头文件</Filter>
+      <Filter>Src</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Logger.h">
-      <Filter>头文件</Filter>
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanFunctions.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Renderer.h">
+      <Filter>Src</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\Singleton.hpp">
-      <Filter>头文件</Filter>
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanDevice.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Vulkan\VulkanApplication.h">
+      <Filter>Src\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanPhysicalDevice.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Vulkan\VulkanBuffer.h">
+      <Filter>Src\Vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanSurface.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Vulkan\VulkanCommandBuffer.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanCommandPool.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanDescriptorPool.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanDescriptorSetLayout.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanDevice.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanDeviceMemory.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanExtensions.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanFence.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanFrameBuffer.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanFunctions.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanImage.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanIndexBuffer.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanInstance.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanPhysicalDevice.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanPipeline.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanPipelineCache.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanPipelineLayout.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanQueue.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanRenderPass.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanSampler.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanSemaphore.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanShaderModule.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanSurface.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanSwapChain.h">
+      <Filter>Src\Vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Src\Vulkan\VulkanVertexBuffer.h">
+      <Filter>Src\Vulkan</Filter>
     </ClInclude>
     <ClInclude Include="..\Src\WindowParameters.h">
-      <Filter>头文件</Filter>
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanSwapChain.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Utils.h">
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanCommandPool.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Define.h">
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanCommandBuffer.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Mesh.h">
+      <Filter>Src</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanSemaphore.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Math\Math.h">
+      <Filter>Src\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Src\VulkanFence.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanQueue.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanDeviceMemory.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanImage.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanSampler.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanDescriptorSetLayout.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanDescriptorPool.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanRenderPass.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanFrameBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanShaderModule.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanPipelineLayout.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanPipelineCache.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanVertexBuffer.h">
-      <Filter>头文件</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Src\VulkanIndexBuffer.h">
-      <Filter>头文件</Filter>
+    <ClInclude Include="..\Src\Vulkan\VulkanRenderer.h">
+      <Filter>Src\Vulkan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\Src\listofvulkanfunctions.inl">
-      <Filter>源文件</Filter>
+    <None Include="..\Src\Vulkan\ListOfVulkanFunctions.inl">
+      <Filter>Src\Vulkan</Filter>
     </None>
   </ItemGroup>
 </Project>
