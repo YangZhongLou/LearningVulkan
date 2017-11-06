@@ -5,10 +5,11 @@
 
 namespace yzl
 {
-	VulkanQueue::VulkanQueue(VulkanDevice * device, VkQueue queue)
+	VulkanQueue::VulkanQueue(VulkanDevice * device, VkQueue queue, uint32_t familyIndex)
 	{
 		m_device = device;
 		m_queue = queue;
+		m_familyIndex = familyIndex;
 	}
 
 	VulkanQueue::~VulkanQueue()

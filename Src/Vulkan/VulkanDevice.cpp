@@ -1,6 +1,7 @@
 
 #include "VulkanDevice.h"
 #include "VulkanPhysicalDevice.h"
+#include "VulkanCommandPool.h"
 #include "VulkanExtensions.h"
 #include "VulkanSemaphore.h"
 #include "VulkanQueue.h"
@@ -13,14 +14,19 @@ namespace yzl
 	VulkanDevice::VulkanDevice(VulkanInstance* vkInstance, std::vector<VkPhysicalDevice>& physicalDevices,
 		std::vector<char const *> const & desiredExtensions)
 	{
-		Init(vkInstance, physicalDevices, desiredExtensions);
+		SelectPhysicalDevice(vkInstance, physicalDevices, desiredExtensions);
+
+		AllocateCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT, m_graphicsQueue->GetFamilyIndex());
 	}
 
 	VulkanDevice::~VulkanDevice()
 	{
+		SAFE_DELETE(m_commandPool);
 		SAFE_DELETE(m_vulkanPhysicalDevice);
+		SAFE_DELETE(m_graphicsQueue);
+		SAFE_DELETE(m_computeQueue);
+		vkDestroyDevice(m_device, NULL);
 	}
-
 
 	static bool CreateLogicalDevice(VkPhysicalDevice physicalDevice,
 		std::vector<QueueInfo>            queueInfos,
@@ -141,18 +147,26 @@ namespace yzl
 		return false;
 	}
 
-	bool VulkanDevice::Init(const VulkanInstance * vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
+	bool VulkanDevice::AllocateCommandPool(VkCommandPoolCreateFlags flags, uint32_t queueFamilyIndex)
+	{
+		m_commandPool = new VulkanCommandPool(this, flags, queueFamilyIndex);
+	}
+
+	bool VulkanDevice::SelectPhysicalDevice(const VulkanInstance * vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
 			std::vector<char const *> const & desiredExtensions)
 	{
-		for (auto& device : physicalDevices) {
+		for (auto& device : physicalDevices) 
+		{
 			VulkanPhysicalDevice physicalDevice(device);
 			VkPhysicalDeviceFeatures deviceFeatures = physicalDevice.GetFeatures();
 			VkPhysicalDeviceProperties deviceProperties = physicalDevice.GetProperties();
 
-			if (!deviceFeatures.geometryShader) {
+			if (!deviceFeatures.geometryShader) 
+			{
 				continue;
 			}
-			else {
+			else 
+			{
 				deviceFeatures = {};
 				deviceFeatures.geometryShader = VK_TRUE;
 			}
@@ -175,17 +189,25 @@ namespace yzl
 			}
 
 			/* Create logical device*/
-			if (!CreateLogicalDevice(device, requestedQueues, desiredExtensions, &deviceFeatures, m_device)) {
+			if (!CreateLogicalDevice(device, requestedQueues, desiredExtensions, &deviceFeatures, m_device)) 
+			{
 				continue;
 			}
-			else {
-				if (!LoadDeviceLevelFunctions(m_device, {})) {
+			else 
+			{
+				if (!LoadDeviceLevelFunctions(m_device, {})) 
+				{
 					return false;
 				}
 
 				m_vulkanPhysicalDevice = new VulkanPhysicalDevice(device);
-				vkGetDeviceQueue(m_device, graphicsQueueFamilyIndex, 0, &m_graphicsQueue);
-				vkGetDeviceQueue(m_device, graphicsQueueFamilyIndex, 0, &m_computeQueue);
+				VkQueue graphicsQueue;
+				VkQueue computeQueue;
+				vkGetDeviceQueue(m_device, graphicsQueueFamilyIndex, 0, &graphicsQueue);
+				vkGetDeviceQueue(m_device, graphicsQueueFamilyIndex, 0, &computeQueue);
+
+				m_graphicsQueue = new VulkanQueue(this, graphicsQueue, graphicsQueueFamilyIndex);
+				m_computeQueue = new VulkanQueue(this, graphicsQueue, computeQueueFamilyIndex);
 				return true;
 			}
 		}

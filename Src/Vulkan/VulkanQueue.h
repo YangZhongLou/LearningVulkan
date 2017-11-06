@@ -11,9 +11,10 @@ namespace yzl
 	class VulkanQueue
 	{
 	public:
-		VulkanQueue(VulkanDevice* device, VkQueue queue);
+		VulkanQueue(VulkanDevice* device, VkQueue queue, uint32_t familyIndex);
 		~VulkanQueue();
 	public:
+		uint32_t GetFamilyIndex() const { return m_familyIndex; }
 		bool Submit(std::vector<SemaphoreInfo*>& semaphoreInfos,
 			std::vector<VkCommandBuffer>& commandBuffers,
 			std::vector<VkSemaphore>& signalSemaphores,
@@ -27,5 +28,6 @@ namespace yzl
 	private:
 		VulkanDevice* m_device;
 		VkQueue m_queue;
+		uint32_t m_familyIndex;
 	};
 }

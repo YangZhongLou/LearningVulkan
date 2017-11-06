@@ -10,12 +10,13 @@ namespace yzl
 	class VulkanInstance;
 	class VulkanQueue;
 	struct SemaphoreInfo;
+	class VulkanCommandPool;
 
-	typedef struct QueueInfo
+	struct QueueInfo
 	{
-		uint32_t           familyIndex;
+		uint32_t familyIndex;
 		std::vector<float> priorities;
-	}QueueInfo;
+	};
 
 	class VulkanDevice
 	{
@@ -25,11 +26,11 @@ namespace yzl
 		~VulkanDevice();
 	public:
 		VkDevice GetDevice() { return m_device; }
-		bool SynchronizeCommandBuffers(VulkanQueue* firstQueue,
+		bool SynchronizeCommandBuffers(VulkanQueue * firstQueue,
 			std::vector<SemaphoreInfo*>  firstWaitsemaphoreInfos,
 			std::vector<VkCommandBuffer> firstCommandBuffers,
 			std::vector<SemaphoreInfo*>  syncSemaphoreInfos,
-			VulkanQueue* secondQueue,
+			VulkanQueue * secondQueue,
 			std::vector<VkCommandBuffer> secondCommandBuffers,
 			std::vector<VkSemaphore> secondSignalSemaphores,
 			VkFence secondFence);
@@ -37,13 +38,20 @@ namespace yzl
 		bool WaitForFences(std::vector<VkFence> const & fences, VkBool32 waitForAll, uint64_t timeout);
 		bool WaitIdle();
 		bool ResetFences(std::vector<VkFence> const & fences);
+
+		VulkanQueue * GetGraphicsQueue() const { return m_graphicsQueue; }
+		VulkanQueue * GetComputeQueue() const { return m_computeQueue; }
+
 	private:
-		bool Init(const VulkanInstance* vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
+		bool SelectPhysicalDevice(const VulkanInstance* vkInstance, const std::vector<VkPhysicalDevice>& physicalDevices,
 				std::vector<char const *> const & desiredExtensions);
+		bool AllocateCommandPool(VkCommandPoolCreateFlags flags, uint32_t queueFamilyIndex);
+
 	private:
-		VulkanPhysicalDevice* m_vulkanPhysicalDevice;
+		VulkanPhysicalDevice * m_vulkanPhysicalDevice;
 		VkDevice m_device;
-		VkQueue m_graphicsQueue;
-		VkQueue m_computeQueue;
+		VulkanQueue * m_graphicsQueue;
+		VulkanQueue * m_computeQueue;
+		VulkanCommandPool * m_commandPool;
 	};
 }

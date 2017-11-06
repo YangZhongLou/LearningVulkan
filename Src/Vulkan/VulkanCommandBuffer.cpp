@@ -10,11 +10,12 @@ namespace yzl
 {
 	VulkanCommandBuffer::VulkanCommandBuffer(VkCommandBuffer commandBuffer, VkCommandBufferUsageFlags usage, VkCommandBufferInheritanceInfo * secondary_command_buffer_info)
 	{
-		VkCommandBufferBeginInfo commandBufferBeginInfo = {
-			VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,    // VkStructureType                        sType
-			nullptr,                                        // const void                           * pNext
-			usage,                                          // VkCommandBufferUsageFlags              flags
-			secondary_command_buffer_info                   // const VkCommandBufferInheritanceInfo * pInheritanceInfo
+		VkCommandBufferBeginInfo commandBufferBeginInfo = 
+		{
+			VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,   
+			nullptr,                                       
+			usage,                                         
+			secondary_command_buffer_info                  
 		};
 
 		m_commandBuffer = commandBuffer;

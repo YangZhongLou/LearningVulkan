@@ -1,6 +1,8 @@
 #include "VkRenderer.h"
 #include "VulkanInstance.h"
 #include "../Utils.h"
+#include "../WindowParameters.h"
+#include "VulkanSurface.h"
 
 namespace yzl
 {
@@ -36,6 +38,7 @@ namespace yzl
 	{
 		UnloadVulkanLib(m_vkLibrary);
 		SAFE_DELETE(m_vkInstance);
+		SAFE_DELETE(m_surface);
 	}
 
 	void VkRenderer::Submit()
@@ -46,5 +49,10 @@ namespace yzl
 	void VkRenderer::Flush()
 	{
 
+	}
+
+	void VkRenderer::CreatePresentSurface(WindowParameters windowParameters)
+	{
+		m_surface = new VulkanSurface(m_vkInstance->GetInstance(), &windowParameters);
 	}
 }

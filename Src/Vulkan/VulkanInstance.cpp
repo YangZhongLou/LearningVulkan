@@ -9,12 +9,15 @@ namespace yzl
 {
 	VulkanInstance::VulkanInstance(std::string appName, std::string engineName, const std::vector<char const *>& extensions)
 	{
+		m_device = nullptr;
 		Init(appName, engineName, extensions);
 	}
 
 	VulkanInstance::~VulkanInstance()
 	{
+		SAFE_DELETE(m_device);
 		vkDestroyInstance(m_vkInstance, nullptr);
+		m_device = nullptr;
 		m_vkInstance = VK_NULL_HANDLE;
 	}
 
@@ -22,7 +25,8 @@ namespace yzl
 	{
 		CheckExtensions(extensions);
 
-		VkApplicationInfo applicationInfo = {
+		VkApplicationInfo applicationInfo = 
+		{
 			VK_STRUCTURE_TYPE_APPLICATION_INFO,
 			nullptr,
 			appName.c_str(),
@@ -32,7 +36,8 @@ namespace yzl
 			VK_MAKE_VERSION(1, 0, 0)
 		};
 
-		VkInstanceCreateInfo instanceCreateInfo = {
+		VkInstanceCreateInfo instanceCreateInfo = 
+		{
 			VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO,
 			nullptr,
 			0,
@@ -45,11 +50,18 @@ namespace yzl
 
 		VkResult result = vkCreateInstance(&instanceCreateInfo, nullptr, &m_vkInstance);
 		if ((result != VK_SUCCESS) ||
-			(m_vkInstance == VK_NULL_HANDLE)) {
+			(m_vkInstance == VK_NULL_HANDLE)) 
+		{
 			std::cout << "Could not create Vulkan instance." << std::endl;
 		}
 
 		LoadInstanceLevelFunctions(m_vkInstance, extensions);
+
+		/* select a device without extensions*/
+		std::vector<char const*> const & desiredExtensions = {};
+		SelectDevice(desiredExtensions);
+
+		m_device->AllocateCommandPool(VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT, m_device->GetGraphicsQueue()->)
 
 		return true;
 	}
@@ -93,5 +105,13 @@ namespace yzl
 		}
 
 		return true;
+	}
+
+	bool VulkanInstance::SelectDevice(std::vector<char const*> const & desiredExtensions)
+	{
+		if (EnumeratePhysicalDevices())
+		{
+			m_device = new VulkanDevice(this, m_physicalDevices, desiredExtensions);
+		}
 	}
 }

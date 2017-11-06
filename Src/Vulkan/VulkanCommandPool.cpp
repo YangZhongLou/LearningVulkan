@@ -35,7 +35,8 @@ namespace yzl
 
 	bool VulkanCommandPool::AllocateCommandBuffers(VulkanDevice * device, VulkanCommandPool * pool, VkCommandBufferLevel level, uint32_t count)
 	{
-		VkCommandBufferAllocateInfo commandBufferAllocateInfo = {
+		VkCommandBufferAllocateInfo commandBufferAllocateInfo = 
+		{
 			VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO,
 			nullptr,
 			pool->GetPool(),
