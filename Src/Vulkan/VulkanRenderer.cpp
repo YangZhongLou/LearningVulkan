@@ -12,6 +12,7 @@
 #include "VulkanImage.h"
 #include "VulkanFrameBuffer.h"
 #include "VulkanDeviceMemory.h"
+#include "VulkanBuffer.h"
 
 namespace yzl
 {
@@ -52,11 +53,9 @@ namespace yzl
 
 	VulkanRenderer::~VulkanRenderer()
 	{
-		UnloadVulkanLib(m_vkLibrary);
 		SAFE_DELETE(m_instance);
 		SAFE_DELETE(m_surface);
 		SAFE_DELETE(m_swapchain);
-
 		if (m_depthImages.size() > 0)
 		{
 			for (auto depthImage : m_depthImages)
@@ -69,6 +68,11 @@ namespace yzl
 				SAFE_DELETE(depthImageMemory);
 			}
 		}
+
+		SAFE_DELETE(m_vertexBuffer);
+		SAFE_DELETE(m_vertexBufferMemory);
+
+		UnloadVulkanLib(m_vkLibrary);
 	}
 
 	void VulkanRenderer::Submit()
@@ -84,6 +88,13 @@ namespace yzl
 	VulkanDevice * VulkanRenderer::GetDevice()
 	{
 		return m_instance->GetDevice();
+	}
+
+	void VulkanRenderer::CreateVertexBuffer(VkDeviceSize size)
+	{
+		m_vertexBuffer = new VulkanBuffer(GetDevice(), size, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT);
+		m_vertexBufferMemory = new VulkanDeviceMemory(GetDevice());
+		m_vertexBufferMemory->Bind(m_vertexBuffer, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
 	}
 
 	void VulkanRenderer::CreatePresentSurface(WindowParameters windowParameters, 

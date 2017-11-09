@@ -2,6 +2,7 @@
 #include "Canvas.h"
 #include "Utils.h"
 #include "Vulkan/VulkanFunctions.h"
+#include "Vulkan/VulkanRenderer.h"
 
 namespace yzl
 {
@@ -18,6 +19,8 @@ namespace yzl
 	void Application::Init(std::string name, int x, int y, int width, int height)
 	{
 		m_canvas = new Canvas(name, x, y, width, height);
+
+		m_renderer = new VulkanRenderer(m_canvas->GetWindowParameters());
 	}
 
 	Application::~Application()

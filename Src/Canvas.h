@@ -22,7 +22,7 @@ namespace yzl
 
 		const HINSTANCE& GetHInstance() const { return m_winParams.hinstance; }
 		const HWND& GetHWnd() const { return m_winParams.hwnd; }
-
+		const WindowParameters & GetWindowParameters() const { return m_winParams; }
 	private:
 		void InitWindow();
 	private:
@@ -32,7 +32,6 @@ namespace yzl
 		int m_width;
 		int m_height;
 
-		Renderer* m_renderer;
 		WindowParameters m_winParams;
 	};
 }

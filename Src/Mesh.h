@@ -21,6 +21,8 @@ namespace yzl
 			bool unify,
 			uint32_t * vertexStride = nullptr);
 		~Mesh();
+	public:
+		const std::vector<float> & GetData() { return m_data; }
 	private:
 		bool Init(char const * filename,
 			bool loadNormals,
@@ -36,6 +38,7 @@ namespace yzl
 			Vector3 const & faceBitangent,
 			float * tangentData,
 			float * bitangentData);
+
 	private:
 		std::vector<float>  m_data;
 		std::vector<Part>   m_parts;

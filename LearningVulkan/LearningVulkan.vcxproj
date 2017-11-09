@@ -22,7 +22,6 @@
     <ClCompile Include="..\Src\Application.cpp" />
     <ClCompile Include="..\Src\Canvas.cpp" />
     <ClCompile Include="..\Src\Logger.cpp" />
-    <ClCompile Include="..\Src\main.cpp" />
     <ClCompile Include="..\Src\Math\Math.cpp" />
     <ClCompile Include="..\Src\Mesh.cpp" />
     <ClCompile Include="..\Src\Render.cpp" />
@@ -118,7 +117,7 @@
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
@@ -153,6 +152,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(SolutionDir)External\boost;$(SolutionDir)External;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\Libs</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

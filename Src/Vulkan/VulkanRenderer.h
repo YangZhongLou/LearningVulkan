@@ -18,6 +18,7 @@ namespace yzl
 	class VulkanDevice;
 	class VulkanImage;
 	class VulkanDeviceMemory;
+	class VulkanBuffer;
 
 	struct FrameResource 
 	{
@@ -41,6 +42,8 @@ namespace yzl
 		void Flush() override;
 	public:
 		VulkanDevice * GetDevice();
+
+		void CreateVertexBuffer(VkDeviceSize size);
 
 		void CreatePresentSurface(WindowParameters windowParameters, 
 			VkImageUsageFlags imageUsage,
@@ -66,6 +69,9 @@ namespace yzl
 		/* refine this */
 		uint32_t m_framesCount;
 		std::vector<FrameResource> m_frameResources;
+
+		VulkanBuffer * m_vertexBuffer;
+		VulkanDeviceMemory * m_vertexBufferMemory;
 
 		std::vector<VulkanImage*> m_depthImages;
 		std::vector<VulkanDeviceMemory*> m_depthImagesMemory;

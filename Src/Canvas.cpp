@@ -1,6 +1,5 @@
 
 #include "Canvas.h"
-#include "Vulkan/VulkanRenderer.h"
 
 namespace yzl
 {
@@ -13,8 +12,6 @@ namespace yzl
 		m_height = height;
 
 		InitWindow();
-
-		m_renderer = new VulkanRenderer(m_winParams);
 	}
 
 	LRESULT CALLBACK WndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam) {
@@ -83,6 +80,6 @@ namespace yzl
 
 	void Canvas::Draw()
 	{
-		m_renderer->Flush();
+		
 	}
 }

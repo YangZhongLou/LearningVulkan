@@ -6,18 +6,22 @@
 namespace yzl
 {
 	class Canvas;
+	class Renderer;
+	class VulkanBuffer;
 
 	class Application
 	{
 	public:
 		Application();
 		Application(std::string name, int x, int y, int width, int height);
-		~Application();
+		virtual ~Application();
 	public:
 		void Run();
-	private:
+
+		Renderer * GetRenderer() const { return m_renderer; }
 		void Init(std::string name, int x = 100, int y = 100, int width = 100, int height = 100);
 	private:
-		Canvas* m_canvas;
+		Renderer * m_renderer;
+		Canvas * m_canvas;
 	};
 }
