@@ -7,6 +7,11 @@
 #include "VulkanDevice.h"
 #include "VulkanPhysicalDevice.h"
 #include "VulkanCommandPool.h"
+#include "VulkanSemaphore.h"
+#include "VulkanFence.h"
+#include "VulkanImage.h"
+#include "VulkanFrameBuffer.h"
+#include "VulkanDeviceMemory.h"
 
 namespace yzl
 {
@@ -51,6 +56,19 @@ namespace yzl
 		SAFE_DELETE(m_instance);
 		SAFE_DELETE(m_surface);
 		SAFE_DELETE(m_swapchain);
+
+		if (m_depthImages.size() > 0)
+		{
+			for (auto depthImage : m_depthImages)
+			{
+				SAFE_DELETE(depthImage);
+			}
+
+			for (auto depthImageMemory : m_depthImagesMemory)
+			{
+				SAFE_DELETE(depthImageMemory);
+			}
+		}
 	}
 
 	void VulkanRenderer::Submit()
@@ -63,7 +81,7 @@ namespace yzl
 
 	}
 
-	const VulkanDevice * VulkanRenderer::GetDevice() const
+	VulkanDevice * VulkanRenderer::GetDevice()
 	{
 		return m_instance->GetDevice();
 	}
@@ -85,7 +103,6 @@ namespace yzl
 		{
 			std::cout << "Error, VkRenderer::CreatePresentSurface, m_surface->CheckImageExtent()" << std::endl;
 		}
-
 
 		if (!m_surface->CheckImageUsage(imageUsage))
 		{
@@ -110,42 +127,60 @@ namespace yzl
 
 	void VulkanRenderer::PrepareResources()
 	{
+		auto commandPool = GetDevice()->GetCommandPool();
+		commandPool->AllocateCommandBuffers(VK_COMMAND_BUFFER_LEVEL_PRIMARY, m_framesCount);
+
 		for (uint32_t i = 0; i < m_framesCount; ++i)
 		{
-			/*
-			std::vector<VkCommandBuffer> command_buffer;
-			VkDestroyer<VkSemaphore> image_acquired_semaphore(LogicalDevice);
-			VkDestroyer<VkSemaphore> ready_to_present_semaphore(LogicalDevice);
-			VkDestroyer<VkFence> drawing_finished_fence(LogicalDevice);
-			VkDestroyer<VkImageView> depth_attachment(LogicalDevice);
+			VulkanSemaphore * imageAcquiredSemaphore = new VulkanSemaphore(GetDevice());
+			VulkanSemaphore * readyToPresentSemaphore = new VulkanSemaphore(GetDevice());
+			VulkanFence * drawingFinishedFence = new VulkanFence(GetDevice(), true);
+			VkImageView depthAttachment = VK_NULL_HANDLE;;
 
-			GetDevice()->GetCommandPool()->AllocateCommandBuffers(VK_COMMAND_BUFFER_LEVEL_PRIMARY);
-			if (!AllocateCommandBuffers(*LogicalDevice, *CommandPool, VK_COMMAND_BUFFER_LEVEL_PRIMARY, 1, command_buffer)) {
-				return false;
-			}
-			if (!CreateSemaphore(*LogicalDevice, *image_acquired_semaphore)) {
-				return false;
-			}
-			if (!CreateSemaphore(*LogicalDevice, *ready_to_present_semaphore)) {
-				return false;
-			}
-			if (!CreateFence(*LogicalDevice, true, *drawing_finished_fence)) {
-				return false;
-			}
-
-			FrameResources.push_back({
-				command_buffer[0],
-				std::move(image_acquired_semaphore),
-				std::move(ready_to_present_semaphore),
-				std::move(drawing_finished_fence),
-				std::move(depth_attachment),
-				{}
-			});*/
+			m_frameResources.push_back({
+				commandPool->GetCommandBuffer(i),
+				imageAcquiredSemaphore,
+				readyToPresentSemaphore,
+				drawingFinishedFence,
+				depthAttachment,
+				{} });
 		}
 	}
 
-	void VulkanRenderer::CreateSwapChain(VkImageUsageFlags swapchain_image_usage, bool useDepth, VkImageUsageFlags depthAttachmentUsage)
+	void VulkanRenderer::CreateSwapChain(VkImageUsageFlags swapchainImageUsage, bool useDepth, VkImageUsageFlags depthAttachmentUsage)
 	{
 		m_swapchain = new VulkanSwapchain(m_instance->GetDevice(), m_surface);
+
+		auto imageExtent = m_swapchain->GetVulkanSurface()->GetImageExtent();
+		if (useDepth)
+		{
+			for (uint32_t i = 0; i < m_framesCount; ++i)
+			{
+				VulkanImage * image = new VulkanImage(GetDevice(), 
+					VK_IMAGE_TYPE_2D, 
+					VK_FORMAT_D16_UNORM, 
+					{ imageExtent.width, imageExtent.height, 1 },
+					1,
+					1,
+					VK_SAMPLE_COUNT_1_BIT,
+					VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT,
+					false);
+
+				VulkanDeviceMemory * memory = new VulkanDeviceMemory(GetDevice());
+				memory->Bind(image, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+				image->CreateView(VK_IMAGE_VIEW_TYPE_2D, VK_FORMAT_D16_UNORM, VK_IMAGE_ASPECT_DEPTH_BIT, m_frameResources[i].depthAttachment);
+
+				m_depthImages.emplace_back(image);
+				m_depthImagesMemory.emplace_back(memory);
+			}
+		}
+	}
+
+	FrameResource::~FrameResource()
+	{
+		SAFE_DELETE(imageAcquiredSemaphore);
+		SAFE_DELETE(readyToPresentSemaphore);
+		SAFE_DELETE(drawingFinishedFence);
+		SAFE_DELETE(framebuffer);
 	}
 }

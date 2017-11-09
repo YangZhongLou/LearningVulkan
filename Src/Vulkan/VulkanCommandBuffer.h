@@ -16,7 +16,7 @@ namespace yzl
 	class VulkanCommandBuffer
 	{
 	public:
-		VulkanCommandBuffer(VkCommandBuffer commandBuffer, VkCommandBufferUsageFlags usage, VkCommandBufferInheritanceInfo * secondary_command_buffer_info);
+		VulkanCommandBuffer(VkCommandBuffer commandBuffer, VkCommandBufferUsageFlags usage, VkCommandBufferInheritanceInfo * secondaryCommandBufferInfo);
 		~VulkanCommandBuffer();
 	public:
 		bool Reset(bool releaseResources);

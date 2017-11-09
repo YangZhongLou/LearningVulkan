@@ -21,25 +21,75 @@ namespace yzl
 		}
 	}
 
-	const std::vector<VkImage>& VulkanSwapchain::GetImages(VkDevice device)
+	const std::vector<VkImage>& VulkanSwapchain::GetImages()
 	{
 		return m_images;
 	}
 
-	bool VulkanSwapchain::CheckImages(VkDevice device)
+	const std::vector<VkImageView>& VulkanSwapchain::GetImagesView()
+	{
+		if (m_imagesView.size() > 0)
+		{
+			return m_imagesView;
+		}
+
+		if (m_images.size() == 0)
+		{
+			QuerySwapchainImages();
+		}
+
+		for (std::size_t i = 0; i < m_images.size(); ++i)
+		{
+			VkImageView imageView;
+			VkImageViewCreateInfo image_view_create_info = {
+				VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO,  
+				nullptr,                                   
+				0,                                         
+				m_images[i],
+				VK_IMAGE_VIEW_TYPE_2D,
+				m_surface->GetFormat().format,
+				{                                          
+					VK_COMPONENT_SWIZZLE_IDENTITY,         
+					VK_COMPONENT_SWIZZLE_IDENTITY,         
+					VK_COMPONENT_SWIZZLE_IDENTITY,         
+					VK_COMPONENT_SWIZZLE_IDENTITY          
+				},
+				{                                          
+					VK_IMAGE_ASPECT_COLOR_BIT,
+					0,                                     
+					VK_REMAINING_MIP_LEVELS,               
+					0,                                     
+					VK_REMAINING_ARRAY_LAYERS              
+				}
+			};
+
+			VkResult result = vkCreateImageView(m_device->GetDevice(), &image_view_create_info, nullptr, &imageView);
+			if (VK_SUCCESS != result) 
+			{
+				std::cout << "Could not create an image view." << std::endl;
+			}
+			m_imagesView.push_back(imageView);
+		}
+
+		return m_imagesView;
+	}
+
+	bool VulkanSwapchain::QuerySwapchainImages()
 	{
 		uint32_t imagesCount = 0;
-		VkResult result = vkGetSwapchainImagesKHR(device, m_swapchain, &imagesCount, nullptr);
+		VkResult result = vkGetSwapchainImagesKHR(m_device->GetDevice(), m_swapchain, &imagesCount, nullptr);
 		if ((VK_SUCCESS != result) ||
-			(0 == imagesCount)) {
+			(0 == imagesCount)) 
+		{
 			std::cout << "Could not get the number of swapchain images." << std::endl;
 			return false;
 		}
 
 		m_images.resize(imagesCount);
-		result = vkGetSwapchainImagesKHR(device, m_swapchain, &imagesCount, m_images.data());
+		result = vkGetSwapchainImagesKHR(m_device->GetDevice(), m_swapchain, &imagesCount, m_images.data());
 		if ((VK_SUCCESS != result) ||
-			(0 == imagesCount)) {
+			(0 == imagesCount)) 
+		{
 			std::cout << "Could not enumerate swapchain images." << std::endl;
 			return false;
 		}
@@ -49,6 +99,7 @@ namespace yzl
 
 	bool VulkanSwapchain::Init(VulkanDevice* device, VulkanSurface* surface)
 	{
+		m_surface = surface;
 		m_device = device;
 		auto physicalDevice = device->GetVulkanPhysicalDevice()->GetDevice();
 		const VkSurfaceCapabilitiesKHR& surfaceCapabilities = surface->GetCapabilities(physicalDevice);

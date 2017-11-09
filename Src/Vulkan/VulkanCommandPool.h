@@ -14,10 +14,11 @@ namespace yzl
 		~VulkanCommandPool();
 	public:
 		const VkCommandPool GetPool() { return m_pool; }
+		VkCommandBuffer GetCommandBuffer(uint32_t i) { return m_buffers[i]; }
+		bool AllocateCommandBuffers(VkCommandBufferLevel level, uint32_t count);
 		bool Reset(VulkanDevice* device, bool releaseResources);
 	private:
 		bool Init(VulkanDevice* device, VkCommandPoolCreateFlags flags, uint32_t queueFamilyIndex);
-		bool AllocateCommandBuffers(VkCommandBufferLevel level, uint32_t count);
 		bool ReleaseCommandBuffers();
 	private:
 		VulkanDevice* m_device;

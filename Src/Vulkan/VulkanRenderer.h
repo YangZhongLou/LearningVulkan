@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vulkan/vulkan.h>
+#include <vector>
 #include "../Define.h"
 #include "../Renderer.h"
 
@@ -15,15 +16,19 @@ namespace yzl
 	class VulkanFence;
 	class VulkanFrameBuffer;
 	class VulkanDevice;
+	class VulkanImage;
+	class VulkanDeviceMemory;
 
-	struct FrameResources 
+	struct FrameResource 
 	{
-		VulkanCommandBuffer * commandBuffer;
+		VkCommandBuffer commandBuffer;
 		VulkanSemaphore * imageAcquiredSemaphore;
 		VulkanSemaphore * readyToPresentSemaphore;
 		VulkanFence * drawingFinishedFence;
 		VkImageView depthAttachment;
 		VulkanFrameBuffer * framebuffer;
+
+		~FrameResource();
 	};
 	
 	class VulkanRenderer : public Renderer
@@ -35,7 +40,7 @@ namespace yzl
 		void Submit() override;
 		void Flush() override;
 	public:
-		const VulkanDevice * GetDevice() const;
+		VulkanDevice * GetDevice();
 
 		void CreatePresentSurface(WindowParameters windowParameters, 
 			VkImageUsageFlags imageUsage,
@@ -44,7 +49,7 @@ namespace yzl
 			VkSurfaceFormatKHR surfaceFormat);
 		void PrepareResources();
 
-		void CreateSwapChain(VkImageUsageFlags swapchain_image_usage,
+		void CreateSwapChain(VkImageUsageFlags swapchainImageUsage,
 			bool useDepth,
 			VkImageUsageFlags depthAttachmentUsage);
 	private:
@@ -60,5 +65,9 @@ namespace yzl
 
 		/* refine this */
 		uint32_t m_framesCount;
+		std::vector<FrameResource> m_frameResources;
+
+		std::vector<VulkanImage*> m_depthImages;
+		std::vector<VulkanDeviceMemory*> m_depthImagesMemory;
 	};
 }

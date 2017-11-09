@@ -8,14 +8,16 @@
 
 namespace yzl
 {
-	VulkanCommandBuffer::VulkanCommandBuffer(VkCommandBuffer commandBuffer, VkCommandBufferUsageFlags usage, VkCommandBufferInheritanceInfo * secondary_command_buffer_info)
+	VulkanCommandBuffer::VulkanCommandBuffer(VkCommandBuffer commandBuffer,
+		VkCommandBufferUsageFlags usage, 
+		VkCommandBufferInheritanceInfo * secondaryCommandBufferInfo)
 	{
 		VkCommandBufferBeginInfo commandBufferBeginInfo = 
 		{
 			VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO,   
 			nullptr,                                       
 			usage,                                         
-			secondary_command_buffer_info                  
+			secondaryCommandBufferInfo
 		};
 
 		m_commandBuffer = commandBuffer;

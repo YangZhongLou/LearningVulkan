@@ -79,7 +79,8 @@ namespace yzl
 	{
 		m_device = device;
 
-		VkImageCreateInfo imageCreateInfo = {
+		VkImageCreateInfo imageCreateInfo = 
+		{
 			VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO,                
 			nullptr,                                            
 			cubemap ? VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT : 0u, 
